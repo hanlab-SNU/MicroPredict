@@ -1,0 +1,16 @@
+Package: MicroImpute
+Title: MicroImpute : Imputing the whole metagenomic shotgun sequencing data using the 16S amplicon sequencing data
+Version: 1.0.0
+Authors@R: 
+    person("Chloe Soohyun", "Jang", , "soohyun9749@snu.ac.kr", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-6954-6915"))
+Description: Imputation tool for the whole metagenomic shotgun sequencing abundnace data using the 16S amplicon sequencing abundance data
+License: use_mit_license()
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Imports:
+	data.table(>= 1.14.2)
+	lme4(>= 1.1.31)
+Depends: R (>= 4.1.2)
+LazyData: true
