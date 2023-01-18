@@ -3,11 +3,11 @@ MicroImpute
 
 Introduction
 ------------
-`MicroImpute` is a R package for imputing whole metagenomic shotgun sequencing abundance data using the 16S amplicon sequencing abundance data
+`MicroImpute` is a R package for imputing whole metagenomic shotgun sequencing abundance data using the 16S amplicon sequencing abundance data.
 
 Installation
 ------------
-Before donwload `MicroImpute` package, please install following three R packages first.
+Before download `MicroImpute` package, please install following three R packages first.
 
 ``` r
 > install.packages("devtools")
@@ -18,7 +18,7 @@ Before donwload `MicroImpute` package, please install following three R packages
 Then, you can directly install the released version of `MicroImpute` package from Github with:
 
 ``` r
-> devtools::install_github("hanlab-SNU/MicroImpute")  
+> devtools::install_github("hanlab-SNU/MicroImpute")
 > library(MicroImpute)
 ```
 
@@ -72,8 +72,9 @@ Actinotignum_schaalii         0
 > imputed <- microimpute(X=smpdata, meta=meta, preprocess=FALSE, normalized=FALSE, sep=",") 
 
 ## you can provide the input-form / matrix file path
-imputed <- microimpute(X="abd_filepath", meta="filepath", preprocess=FALSE, normalized=FALSE, sep=",") 
-``` r
+> imputed <- microimpute(X="abd_filepath", meta="meta_filepath", preprocess=FALSE, normalized=FALSE, sep=",") 
+
+```
 
 
 Citation

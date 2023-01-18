@@ -1,6 +1,8 @@
 #' preprocess() function
 #'
 #' This function preprocess the input data and transform the data for imputation
+#' @import lme4
+#' @import data.table
 #' @param abd_loc : abundance data location for import
 #' @param meta : metadata location for import
 #' @param sep : separator for data
@@ -12,17 +14,21 @@
 #' 
 rownameset <- function(df){
 	df <- as.data.frame(df)
-	row.names(df) <- df$taxa
+	row.names(df) <- df$Species
 	df$Species <- NULL
 
 	return(df)
 }
 
-preprocess <- function(abd_loc, meta=meta, normalized=TRUE, sep=","){
+preprocess <- function(X, meta, normalized=TRUE, sep=","){
 
+	if (class(X) == "character"){
 	# row: microbiome x col: sample name (m x n)
 	abd = as.data.frame(fread(abd_loc, sep=sep))
+	}
+	if (class(meta) == "character"){
 	meta = as.data.frame(fread(meta_loc, sep=sep)) # Sample cov1 cov2
+	}
 
 	row.names(abd) <- abd[,1]
 	abd <- abd[,-1]

@@ -1,17 +1,21 @@
 #' upd_module() function
 #'
 #' This function is update module for species detected from both platforms (16S and WGS)
+#' @import lme4
+#' @import data.table
 #' @param X after preprocess step 
-#' @keywords imputation module
+#' @keywords update module
 #' @export
 #' @examples
-#' imp_module())
+#' upd_module())
 #' 
 #'
 upd_module <- function(X=lmm_input){
 
-	# load model
-	lmm_upd <- readRDS(paste(.libPaths(),"/MicroImpute/model/upd_module.rds",sep=""))
+	# load update module trained model
+	githubURL <- "https://github.com/hanlab-SNU/MicroImpute/raw/main/model/upd_module.rds"
+	download.file(githubURL,"upd_module.rds", method="wget")
+	lmm_upd <- readRDS("upd_module.rds")
 
 	species_notimp <- X[!X$Species %in% lmm_upd@frame$Species,]$Species
 
