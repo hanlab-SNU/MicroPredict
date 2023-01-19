@@ -19,19 +19,22 @@ imp_module <- function(smp_name=smp_name, meta=meta, species_upd = species_upd, 
 
 	# making lmm_input for imputation module
 	X = melt(matrix(0, nrow=length(lmm_imp@frame$Species), ncol=length(smp_name), dimnames=list(lmm_imp@frame$Species,smp_name)))[,1:2]
-	colnames(X) <- c("Speceis","Sample")
+	colnames(X) <- c("Species","Sample")
 	X <- merge(X, metadata, by=c("Sample"))
 
 	# add PC columns depending on sample ID - species
 	X[,paste("PC",rep(1:10),sep="")] <- NA
-	for (i in 1:nrow(X)){
-		X[i,6:15] <- pc[as.character(X$Sample[[i]]),]
-	}
 
+	
+	for (i in smp_name){
+		X[X$Sample == i,][5:14] <- pc[i,]
+	}
+	
 	# imputation
 	X$exp_imp <- predict(lmm_imp, X)
 
 	imputed <- dcast(X[,c('Species','Sample','exp_imp')], Species~Sample)
+	imputed <- rownameset(imputed)
 
 	return(imputed)
 

@@ -19,8 +19,9 @@
 microimpute <- function(X=smpdata, meta=meta, preprocess=FALSE, normalized=TRUE, sep=","){
 	
 	options(warn=-1)
+	cat("MicroImpute Start ============ \n\n")
 	
-	cat("Preprocessing...\n")
+	cat("Step 1. Preprocessing...\n")
 	if (preprocess==FALSE) {
 		if (normalized==TRUE) {
 			lmm_input <- preprocess(X, meta, normalized=TRUE, sep=",")
@@ -65,52 +66,63 @@ microimpute <- function(X=smpdata, meta=meta, preprocess=FALSE, normalized=TRUE,
 	smp_name <- levels(lmm_input[["X"]]$Sample)
 	cat("Preprocessed Completed.\n\n")
 
-	# two modules
-	cat("Update module processing...\n")
+	# Two modules
+	## Update module
+	cat("Step 2. Update module processing...\n")
 	imputed_upd <- upd_module(lmm_input[["X"]])
-	cat("Update module Completed.\n")
+	cat("Update module Completed.\n\n")
 	
-	cat("Imputation module processing...\n")
+	## Imputation module
+	cat("Step 3. Imputation module processing...\n")
 	imputed_imp <- imp_module(smp_name,meta,imputed_imp[[2]],lmm_input[["pc"]])
-	cat("Imputation module Completed.\n")
+	cat("Imputation module Completed.\n\n")
 	
 	
 	
 	if (preprocess==FALSE){
-		exp_16sonly <- X[row.names(X) %in% setdiff(imputed_imp[[2]], imputed_upd[[2]]),]
+		exp_16sonly <- X[row.names(X) %in% imputed_upd[[2]],]
 	}
 	else {
 		tmp <- dcast(X[,c('Species','Sample','exp_16s')], Species~Sample)
-		exp_16sonly <- tmp[row.names(tmp) %in% setdiff(imputed_imp[[2]], imputed_upd[[2]]),]
+		tmp <- rownameset(tmp)
+		exp_16sonly <- tmp[row.names(tmp) %in% imputed_upd[[2]],]
 	}
-
-	cat("Merging imputed outputs from two modules...\n")
-	tryCatch({
-		imputed <- rbind(imputed_imp[[1]], exp_16sonly, imputed_upd[[1]])
-	},
-	error = function(e) {
-		cat("  - Averaging several species duplicate imputed values from two different modules...\n")
-		int_species <- intersection(row.names(imputed_imp[[1]]), row.names(exp_16sonly), row.names(imputed_upd[[1]]))
-		if (int_species>1){
-
-			imputed_imp$species <- row.names(imputed_imp[[1]])
-			exp_16sonly$species <- row.names(exp_16sonly)
-			imputed_upd$species <- row.names(imputed_upd[[1]])
-
-			row.names(imputed_imp[[1]]) <- NULL
-			row.names(exp_16sonly) <- NULL
-			row.names(imputed_upd[[1]]) <- NULL
-
-			imputed <- rbind(imputed_imp[[1]], exp_16sonly, imputed_upd[[1]])
-			imputed_mean <- setDT(imputed)[, lapply(.SD, mean, na.rm=TRUE), by=species]
-			row.names(imputed_mean) <- imputed_mean$species
-			imputed_mean$species <- NULL
-
-	}
-
-	})
 	
-	cat("MicroImpute Finished.")
+	cat("Step 4. Merging imputed outputs from two modules...\n")
+
+	int_species <- Reduce(intersect, list(row.names(imputed_imp), row.names(exp_16sonly), row.names(imputed_upd[[1]])))
+	
+	if (length(int_species) > 1){
+		cat("  - Averaging several species duplicate imputed values from two different modules...\n")
+		
+		imputed_imp$species <- row.names(imputed_imp)
+		exp_16sonly$species <- row.names(exp_16sonly)
+		imputed_upd$species <- row.names(imputed_upd[[1]])
+
+		row.names(imputed_imp) <- NULL
+		row.names(exp_16sonly) <- NULL
+		row.names(imputed_upd[[1]]) <- NULL
+
+		imputed <- rbind(imputed_imp, exp_16sonly, imputed_upd[[1]])
+		imputed_mean <- setDT(imputed)[, lapply(.SD, mean, na.rm=TRUE), by=species]
+		row.names(imputed_mean) <- imputed_mean$species
+		imputed_mean$species <- NULL
+		imputed <- imputed_mean
+		
+	}
+	
+	else {
+		cat(" * Imputation module species :", nrow(imputed_imp), "\n")
+		cat(" * Update module species :", nrow(imputed_upd[[1]]), "\n")
+		cat(" * 16S Only species :", nrow(exp_16sonly), "\n\n")
+		
+		imputed <- rbind(imputed_imp, exp_16sonly, imputed_upd[[1]])
+		
+		cat(" ⇢ Total species :", nrow(imputed), "\n")
+	}
+	
+	cat("MicroImpute Finished.\n\n")
+	
 	return(imputed)
 
 }
