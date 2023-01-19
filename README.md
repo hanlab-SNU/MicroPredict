@@ -69,7 +69,7 @@ Actinotignum_schaalii         0
 > imputed <- microimpute(X=smpdata_input, preprocess=TRUE, normalized=TRUE)
 
 ## or
-> imputed <- microimpute(X=smpdata, meta=meta, preprocess=FALSE, normalized=FALSE) 
+> imputed <- microimpute(X=smpdata, meta=metadata, preprocess=FALSE, normalized=FALSE) 
 
 ## you can provide the input-form / matrix file path
 > imputed <- microimpute(X="abd_filepath", meta="meta_filepath", preprocess=FALSE, normalized=FALSE, sep=",") 
