@@ -22,7 +22,8 @@ microimpute <- function(X=smpdata, meta=metadata, preprocess=FALSE, normalized=T
 	cat("************************************************************\n")
 	cat(" MicroImpute Version 1.0.0 \n")
 	cat(" Copyright (C) 2023 Hanlab in Seoul National University (SNU)\n")
-	cat(" Made by. Chloe Soohyun Jang\n\n")
+	cat(" Made by. Chloe Soohyun Jang\n")
+	cat("************************************************************\n\n")
 	cat("MicroImpute Imputation Start.\n")
 	
 	cat("Step 1. Preprocessing...\n")
@@ -125,7 +126,7 @@ microimpute <- function(X=smpdata, meta=metadata, preprocess=FALSE, normalized=T
 		cat(" ⇢ Total species :", nrow(imputed), "\n")
 	}
 	
-	cat("MicroImpute Finished.\n\n")
+	cat("MicroImpute Finished.\n")
 	cat("************************************************************\n")
 	
 	return(imputed)
