@@ -2,9 +2,8 @@
 #'
 #' This function is the main function of MicroImpute R package
 #' @import lme4
-#' @import reshape2
 #' @import data.table
-#' @param X abundance 
+#' @param X abundance or lmm input form (dataframe / file path)
 #' @param meta meta data 
 #' @param preprocess preprocessed or not
 #' @param normalized normalized or not
