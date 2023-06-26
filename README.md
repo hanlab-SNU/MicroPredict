@@ -73,6 +73,7 @@ Actinotignum_schaalii         0
 
 ## you can provide the input-form / matrix file path
 > imputed <- microimpute(X="abd_filepath", meta="meta_filepath", preprocess=FALSE, normalized=FALSE, sep=",") 
+### The input and the imputed dataframes are all log-transformed abundances 
 
 ```
 
