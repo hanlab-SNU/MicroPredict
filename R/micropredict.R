@@ -1,6 +1,6 @@
-#' microimpute()
+#' micropredict()
 #'
-#' This function is the main function of MicroImpute R package
+#' This function is the main function of MicroPredict R package
 #' @import lme4
 #' @import data.table
 #' @param X abundance or lmm input form (dataframe / file path)
@@ -8,11 +8,11 @@
 #' @param preprocess preprocessed or not
 #' @param normalized normalized or not
 #' @param sep separator
-#' @keywords MicroImpute main module
+#' @keywords MicroPredict main module
 #' @return A imputed matrix of dimension n_taxa x n_samples
 #' @export
 #' @examples
-#' microimpute()
+#' micropredict()
 #' 
 #' 
 micropredict <- function(X=smpdata, meta=metadata, preprocess=FALSE, normalized=TRUE, sep=","){
