@@ -13,13 +13,13 @@
 upd_module <- function(X=lmm_input){
 
 	# load update module trained model
-	githubURL <- "https://github.com/hanlab-SNU/MicroImpute/raw/main/model/upd_module.rds"
+	githubURL <- "https://github.com/hanlab-SNU/MicroPredict/raw/main/model/upd_module.rds"
 	download.file(githubURL,"upd_module.rds", method="wget")
 	lmm_upd <- readRDS("upd_module.rds")
 
 	species_notimp <- X[!X$Species %in% lmm_upd@frame$Species,]$Species
 
-	# check species for imputation module
+	# check species for update module
 	X <- X[X$Species %in% lmm_upd@frame$Species,]
 	X$exp_imp <- predict(lmm_upd, X)
 
@@ -28,6 +28,7 @@ upd_module <- function(X=lmm_input){
 	imputed[[1]] <- rownameset(imputed)
 
 	imputed[[2]] <- species_notimp
+	print("Species Only for 16S: ", species_notimp)
 
 	return(imputed)
 
