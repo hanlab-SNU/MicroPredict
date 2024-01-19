@@ -1,9 +1,9 @@
-MicroImpute
+MicroPredict
 ===================
 
 Introduction
 ------------
-`MicroImpute` is a R package for imputing whole metagenomic shotgun sequencing abundance data using the 16S amplicon sequencing abundance data.
+`MicroPredict` is a R package for imputing whole metagenomic shotgun sequencing abundance data using the 16S amplicon sequencing abundance data.
 
 Installation
 ------------
@@ -65,22 +65,22 @@ Actinotignum_schaalii         0
 6  smp_6       M       2
 
 
-## Imputation
-> imputed <- microimpute(X=smpdata_input, preprocess=TRUE, normalized=TRUE)
+## Predict
+> predicted <- micropredict(X=smpdata_input, preprocess=TRUE, normalized=TRUE)
 
 ## or
-> imputed <- microimpute(X=smpdata, meta=metadata, preprocess=FALSE, normalized=FALSE) 
+> predicted <- micropredict(X=smpdata, meta=metadata, preprocess=FALSE, normalized=FALSE) 
 
 ## you can provide the input-form / matrix file path
-> imputed <- microimpute(X="abd_filepath", meta="meta_filepath", preprocess=FALSE, normalized=FALSE, sep=",") 
-### The input and the imputed dataframes are all log-transformed abundances 
+> imputed <- micropredict(X="abd_filepath", meta="meta_filepath", preprocess=FALSE, normalized=FALSE, sep=",") 
+### The input and the predicted dataframes are all log-transformed abundances 
 
 ```
 
 
 Citation
 ----------
-If you use `MicroImpute`, please cite [Jang et al. MicroImpute: Imputing the whole metagenomic shotgun sequencing data using the 16S amplicon sequencing data (under review) (2023)](www.)
+If you use `MicroPredict`, please cite [Jang et al. MicroPredict: MicroPredict: Predicting species-level taxonomic abundance of whole-shotgun metagenomic data only using 16S amplicon sequencing data (under review) (2024)](www.)
 
 
 Support
