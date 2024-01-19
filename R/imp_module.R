@@ -13,7 +13,7 @@
 imp_module <- function(smp_name=smp_name, meta=meta, species_upd = species_upd, pc=pc){
 
 	# load imputation module trained model
-	githubURL <- "https://github.com/hanlab-SNU/MicroImpute/raw/main/model/imp_module.rds"
+	githubURL <- "https://github.com/hanlab-SNU/MicroPredict/raw/main/model/imp_module.rds"
 	download.file(githubURL,"imp_module.rds", method="wget")
 	lmm_imp <- readRDS("imp_module.rds")
 
