@@ -7,7 +7,7 @@ Introduction
 
 Installation
 ------------
-Before download `MicroImpute` package, please install following three R packages first.
+Before download `MicroPredict` package, please install following three R packages first.
 
 ``` r
 > install.packages("devtools")
@@ -15,11 +15,11 @@ Before download `MicroImpute` package, please install following three R packages
 > install.packages("lme4")
 ```
 
-Then, you can directly install the released version of `MicroImpute` package from Github with:
+Then, you can directly install the released version of `MicroPredict` package from Github with:
 
 ``` r
-> devtools::install_github("hanlab-SNU/MicroImpute")
-> library(MicroImpute)
+> devtools::install_github("hanlab-SNU/MicroPredict")
+> library(MicroPredict)
 ```
 
 Usage
