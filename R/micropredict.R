@@ -15,15 +15,15 @@
 #' microimpute()
 #' 
 #' 
-microimpute <- function(X=smpdata, meta=metadata, preprocess=FALSE, normalized=TRUE, sep=","){
+micropredict <- function(X=smpdata, meta=metadata, preprocess=FALSE, normalized=TRUE, sep=","){
 	
 	options(warn=-1)
 	cat("************************************************************\n")
-	cat(" MicroImpute Version 1.0.0 \n")
+	cat(" MicroPredict Version 1.0.0 \n")
 	cat(" Copyright (C) 2023 Hanlab in Seoul National University (SNU)\n")
 	cat(" Made by. Chloe Soohyun Jang\n")
 	cat("************************************************************\n\n")
-	cat("MicroImpute Imputation Start.\n")
+	cat("MicroPredict Prediction Start.\n")
 	
 	cat("Step 1. Preprocessing...\n")
 	if (preprocess==FALSE) {
@@ -116,8 +116,8 @@ microimpute <- function(X=smpdata, meta=metadata, preprocess=FALSE, normalized=T
 	}
 	
 	else {
-		cat(" * Imputation module species :", nrow(imputed_imp), "\n")
 		cat(" * Update module species :", nrow(imputed_upd[[1]]), "\n")
+		cat(" * Imputation module species :", nrow(imputed_imp), "\n")
 		cat(" * 16S Only species :", nrow(exp_16sonly), "\n\n")
 		
 		imputed <- rbind(imputed_imp, exp_16sonly, imputed_upd[[1]])
@@ -125,7 +125,7 @@ microimpute <- function(X=smpdata, meta=metadata, preprocess=FALSE, normalized=T
 		cat(" ⇢ Total species :", nrow(imputed), "\n")
 	}
 	
-	cat("MicroImpute Finished.\n")
+	cat("MicroPredict Finished.\n")
 	cat("************************************************************\n")
 	
 	return(imputed)
