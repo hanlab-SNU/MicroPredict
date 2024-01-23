@@ -25,7 +25,7 @@ Then, you can directly install the released version of `MicroPredict` package fr
 Usage
 ------------
 ``` r
-## Display example data for microimpute 
+## Display example data for micropredict
 ### input form data
 > head(smpdata_input)
   Sample                  Species exp_16s cov1_cm cov2_tp
