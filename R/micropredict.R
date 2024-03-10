@@ -15,7 +15,7 @@
 #' micropredict()
 #' 
 #' 
-micropredict <- function(X=smpdata, meta=metadata, preprocess=FALSE, normalized=TRUE, sep=","){
+micropredict <- function(X=smpdata, meta=metadata, preprocess=FALSE, normalized=TRUE, imputation=TRUE, sep=","){
 	
 	options(warn=-1)
 	cat("************************************************************\n")
@@ -75,12 +75,13 @@ micropredict <- function(X=smpdata, meta=metadata, preprocess=FALSE, normalized=
 	cat("Step 2. Update module processing...\n")
 	imputed_upd <- upd_module(lmm_input[["X"]])
 	cat("Update module Completed.\n\n")
-	
-	## Imputation module
-	cat("Step 3. Imputation module processing...\n")
-	imputed_imp <- imp_module(smp_name,meta,imputed_imp[[2]],lmm_input[["pc"]])
-	cat("Imputation module Completed.\n\n")
-	
+
+	if (imputation==TRUE){
+		## Imputation module
+		cat("Step 3. Imputation module processing...\n")
+		imputed_imp <- imp_module(smp_name,meta,imputed_imp[[2]],lmm_input[["pc"]])
+		cat("Imputation module Completed.\n\n")
+	}
 	
 	
 	if (preprocess==FALSE){
@@ -91,40 +92,50 @@ micropredict <- function(X=smpdata, meta=metadata, preprocess=FALSE, normalized=
 		tmp <- rownameset(tmp)
 		exp_16sonly <- tmp[row.names(tmp) %in% imputed_upd[[2]],]
 	}
+
+	if (imputation==TRUE){
+		cat("Step 4. Merging imputed outputs from two modules...\n")
 	
-	cat("Step 4. Merging imputed outputs from two modules...\n")
-
-	int_species <- Reduce(intersect, list(row.names(imputed_imp), row.names(exp_16sonly), row.names(imputed_upd[[1]])))
+		int_species <- Reduce(intersect, list(row.names(imputed_imp), row.names(exp_16sonly), row.names(imputed_upd[[1]])))
+		
+		if (length(int_species) > 1){
+			cat("  - Averaging several species duplicate imputed values from two different modules...\n")
+			
+			imputed_imp$species <- row.names(imputed_imp)
+			exp_16sonly$species <- row.names(exp_16sonly)
+			imputed_upd$species <- row.names(imputed_upd[[1]])
 	
-	if (length(int_species) > 1){
-		cat("  - Averaging several species duplicate imputed values from two different modules...\n")
+			row.names(imputed_imp) <- NULL
+			row.names(exp_16sonly) <- NULL
+			row.names(imputed_upd[[1]]) <- NULL
+	
+			imputed <- rbind(imputed_imp, exp_16sonly, imputed_upd[[1]])
+			imputed_mean <- setDT(imputed)[, lapply(.SD, mean, na.rm=TRUE), by=species]
+			row.names(imputed_mean) <- imputed_mean$species
+			imputed_mean$species <- NULL
+			imputed <- imputed_mean
+			
+		}
 		
-		imputed_imp$species <- row.names(imputed_imp)
-		exp_16sonly$species <- row.names(exp_16sonly)
-		imputed_upd$species <- row.names(imputed_upd[[1]])
-
-		row.names(imputed_imp) <- NULL
-		row.names(exp_16sonly) <- NULL
-		row.names(imputed_upd[[1]]) <- NULL
-
-		imputed <- rbind(imputed_imp, exp_16sonly, imputed_upd[[1]])
-		imputed_mean <- setDT(imputed)[, lapply(.SD, mean, na.rm=TRUE), by=species]
-		row.names(imputed_mean) <- imputed_mean$species
-		imputed_mean$species <- NULL
-		imputed <- imputed_mean
-		
+		else {
+			cat(" * Update module species :", nrow(imputed_upd[[1]]), "\n")
+			cat(" * Imputation module species :", nrow(imputed_imp), "\n")
+			cat(" * 16S Only species :", nrow(exp_16sonly), "\n\n")
+			
+			imputed <- rbind(exp_16sonly, imputed_upd[[1]])
+			
+			cat(" ⇢ Total species :", nrow(imputed), "\n")
+		}
 	}
-	
+
 	else {
 		cat(" * Update module species :", nrow(imputed_upd[[1]]), "\n")
-		cat(" * Imputation module species :", nrow(imputed_imp), "\n")
 		cat(" * 16S Only species :", nrow(exp_16sonly), "\n\n")
-		
 		imputed <- rbind(imputed_imp, exp_16sonly, imputed_upd[[1]])
-		
+
 		cat(" ⇢ Total species :", nrow(imputed), "\n")
+
 	}
-	
 	cat("MicroPredict Finished.\n")
 	cat("************************************************************\n")
 	
