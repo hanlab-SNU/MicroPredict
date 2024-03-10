@@ -65,14 +65,17 @@ Actinotignum_schaalii         0
 6  smp_6       M       2
 
 
-## Predict
-> predicted <- micropredict(X=smpdata_input, preprocess=TRUE, normalized=TRUE)
+## Perform MicroPredict
+> predicted <- micropredict(X=smpdata_input, preprocess=TRUE, normalized=TRUE, imputation=TRUE)
 
-## or
-> predicted <- micropredict(X=smpdata, meta=metadata, preprocess=FALSE, normalized=FALSE) 
+## Perform MicroPredict without preprocess or normalized
+> predicted <- micropredict(X=smpdata, meta=metadata, preprocess=FALSE, normalized=FALSE, imputation=TRUE)
+
+## Perform MicroPredict without imputing abundances of WGS only species
+> predicted <- micropredict(X=smpdata, meta=metadata, preprocess=TRUE, normalized=TRUE, imputation=FALSE)
 
 ## you can provide the input-form / matrix file path
-> imputed <- micropredict(X="abd_filepath", meta="meta_filepath", preprocess=FALSE, normalized=FALSE, sep=",") 
+> imputed <- micropredict(X="abd_filepath", meta="meta_filepath", preprocess=FALSE, normalized=FALSE, imputation=TRUE, sep=",") 
 ### The input and the predicted dataframes are all log-transformed abundances 
 
 ```
