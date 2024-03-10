@@ -9,6 +9,7 @@ micropredict(
   meta = meta,
   preprocess = FALSE,
   normalized = TRUE,
+  impuation = TRUE,
   sep = ","
 )
 }
@@ -20,6 +21,8 @@ micropredict(
 \item{preprocess}{preprocessed or not}
 
 \item{normalized}{normalized or not}
+
+\item{imputation}{imputation or not}
 
 \item{sep}{separator}
 }
