@@ -122,7 +122,8 @@ micropredict <- function(X=smpdata, meta=metadata, preprocess=FALSE, normalized=
 			cat(" * Imputation module species :", nrow(imputed_imp), "\n")
 			cat(" * 16S Only species :", nrow(exp_16sonly), "\n\n")
 			
-			imputed <- rbind(exp_16sonly, imputed_upd[[1]])
+			imputed <- rbind(imputed_imp, exp_16sonly, imputed_upd[[1]])
+			
 			
 			cat(" ⇢ Total species :", nrow(imputed), "\n")
 		}
@@ -131,7 +132,7 @@ micropredict <- function(X=smpdata, meta=metadata, preprocess=FALSE, normalized=
 	else {
 		cat(" * Update module species :", nrow(imputed_upd[[1]]), "\n")
 		cat(" * 16S Only species :", nrow(exp_16sonly), "\n\n")
-		imputed <- rbind(imputed_imp, exp_16sonly, imputed_upd[[1]])
+		imputed <- rbind(exp_16sonly, imputed_upd[[1]])
 
 		cat(" ⇢ Total species :", nrow(imputed), "\n")
 
