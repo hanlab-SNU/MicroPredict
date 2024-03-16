@@ -26,9 +26,6 @@ Usage
 ------------
 ``` r
 ## Display example data for micropredict
-### load package
-> library(MicroPredict)
-
 ### input form data
 > head(smpdata_input)
   Sample                  Species exp_16s cov1_cm cov2_tp
