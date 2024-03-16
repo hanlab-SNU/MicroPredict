@@ -26,7 +26,7 @@ Usage
 ------------
 ``` r
 ## Display example data for micropredict
-### load library
+### load package
 > library(MicroPredict)
 ### input form data
 > head(smpdata_input)
@@ -39,7 +39,7 @@ Usage
 6  smp_1    Actinotignum_schaalii       0       C       1
 
 
-### abd data
+### abundance data
 > head(smpdata)
                          smp_1 smp_2 smp_3 smp_4 smp_5 smp_6 smp_7 smp_8 smp_9
 Absiella_argi                0 2.554     0     0     0     0     0     0     0
