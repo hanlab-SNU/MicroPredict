@@ -88,7 +88,7 @@ Actinotignum_schaalii         0
 
 Citation
 ----------
-If you use `MicroPredict`, please cite [Jang et al. MicroPredict: MicroPredict: Predicting species-level taxonomic abundance of whole-shotgun metagenomic data only using 16S amplicon sequencing data (under review) (2024)](www.)
+If you use `MicroPredict`, please cite [Jang et al. MicroPredict: MicroPredict: Predicting species-level taxonomic abundance of whole-shotgun metagenomic data using only 16S amplicon sequencing data (under review) (2024)](www.)
 
 
 Support
