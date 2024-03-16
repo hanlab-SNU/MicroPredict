@@ -26,6 +26,7 @@ Usage
 ------------
 ``` r
 ## Display example data for micropredict
+### load library
 > library(MicroPredict)
 ### input form data
 > head(smpdata_input)
