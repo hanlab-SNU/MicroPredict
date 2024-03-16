@@ -28,6 +28,7 @@ Usage
 ## Display example data for micropredict
 ### load package
 > library(MicroPredict)
+
 ### input form data
 > head(smpdata_input)
   Sample                  Species exp_16s cov1_cm cov2_tp
@@ -56,6 +57,7 @@ Acinetobacter_ursingii        0
 Actinomyces_graevenitzii      0
 Actinotignum_schaalii         0
 
+
 ### meatadata
 > head(metadata)
   Sample cov1_cm cov2_tp
@@ -77,7 +79,8 @@ Actinotignum_schaalii         0
 > predicted <- micropredict(X=smpdata, meta=metadata, preprocess=TRUE, normalized=TRUE, imputation=FALSE)
 
 ## you can provide the input-form / matrix file path
-> imputed <- micropredict(X="abd_filepath", meta="meta_filepath", preprocess=FALSE, normalized=FALSE, imputation=TRUE, sep=",") 
+> imputed <- micropredict(X="abd_filepath", meta="meta_filepath", preprocess=FALSE, normalized=FALSE, imputation=TRUE, sep=",")
+
 ### The input and the predicted dataframes are all log-transformed abundances 
 
 ```
